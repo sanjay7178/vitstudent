@@ -10,8 +10,8 @@ app.get('/', (c) => {
   return c.render(<h1>Welcome VIT Android App!</h1>)
 })
 
-const owner = 'therealsujitk'
-const repo = 'android-vtop-chennai'
+const owner = 'sanjay7178'
+const repo = 'android-vtop-vitap'
 
 app.get('/about.json', cache({ cacheName: 'github-release-info', cacheControl: 'max-age=3600' }), async (c) => {
   const version = c.req.query('v')
