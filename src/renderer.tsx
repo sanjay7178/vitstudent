@@ -36,12 +36,16 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         <nav className="nav">
           <a href="#">About Me</a>
           <a href="#">Donate</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap">Github</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">Submit Bug</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature Update</a>
         </nav>
       </header>
       <section className="hero">
         <div className="hero-content">
           <h1>VIT Student (AP)</h1>
           <p>@sanjay7178</p>
+          <p>It's fully Open Source</p>
           <p>
             {downloadCount} Downloads | v{version} | 8 MB Download Size
           </p>
