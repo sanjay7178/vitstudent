@@ -1,5 +1,5 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
-import { PropsWithChildren, useEffect, useState } from 'hono/jsx'
+import { PropsWithChildren } from 'hono/jsx'
 import { fetchFormattedData } from '.'
 
 type Post = {
@@ -12,29 +12,13 @@ type Post = {
 
 
 export const renderer = jsxRenderer(({ children, title }) => {
-  const [postProps, setPostProps] = useState<Post | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchFormattedData(); // Call fetchFormattedData without arguments or pass necessary ones
-        setPostProps({
-          downloadCount: data.downloads,
-          version: data.tagName,
-          link: 'https://github.com/sanjay7178/android-vtop-vitap', // Assuming this is static or derived from fetched data
-          updatedOn: data.updatedOn
-        });
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchData();
-  }, []); 
-
-  if (!postProps) {
-    return <div>Loading...</div>;
-  }
+  const postProps: Post = {
+    downloadCount: 10,
+    version: '1.5',
+    link: 'https://github.com/sanjay7178/android-vtop-vitap/releases/v1.5',
+    updatedOn :  'Jul 18, 2024'
+  };
 
   return (
     <html>
@@ -50,7 +34,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
 })
 
 
-function Component({ downloadCount, version ,link, updatedOn }: PropsWithChildren<Post>) {
+function Component({ downloadCount, version ,link }: PropsWithChildren<Post>) {
     return (
         <div className="App">
             <header className="header">
@@ -71,7 +55,7 @@ function Component({ downloadCount, version ,link, updatedOn }: PropsWithChildre
                 <div className="app-info">
                     <h2>App info</h2>
                     <p>Requires Android 7.0+</p>
-                    <p>Updated on {updatedOn}</p>
+                    <p>Updated on Jul 18, 2024</p>
                     <p>Released on Mar 7, 2024</p>
                 </div>
             </section>
