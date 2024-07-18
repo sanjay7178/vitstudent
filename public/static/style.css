@@ -1,104 +1,116 @@
-h1 { font-family: Arial, Helvetica, sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-/* styles.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a;
-    color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+h1, h2, h3 {
+  font-family: "Montserrat", sans-serif;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    margin: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
+
+
 .logo {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-left: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 20px;
 }
 
 .hero {
-    padding: 50px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.hero-content {
-    max-width: 600px;
+.hero-content {margin-left: 40px;
+
+  max-width: 600px;
 }
 
 .hero h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+  font-size: 48px;
+  margin-bottom: 10px;
 }
 
 .hero p {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #00c853;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    border: none;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00c853;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  border: none;
 }
 
 .button.dark {
-    background-color: #333333;
-    color: #ffffff;
+  background-color: #333333;
+  color: #ffffff;
 }
 
 .features {
-    padding: 50px 20px;
+  padding: 50px 20px;
 }
 
 .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .testimonials {
-    padding: 50px 20px;
-    background-color: #2a2a2a;
+  padding: 50px 20px;
+  background-color: #2a2a2a;
 }
 
 .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .download {
-    padding: 50px 20px;
-    text-align: center;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .app-info {
-    text-align: right;
-    margin-left: 20px;
+    margin-right: 40px;
+  text-align: right;
+  margin-left: 20px;
 }
 
 .carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
+    margin-left: 50px;
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 20px 0;
 }
 
 .carousel img {
-    height: 400px;
+  height: 600px;
+  flex-shrink: 0;
+  width: 300px;
 }
