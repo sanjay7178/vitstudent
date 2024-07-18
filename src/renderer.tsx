@@ -53,7 +53,10 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
           <a href={link} className="button">
             Download
           </a>
-          <button className="button dark">Share</button>
+          {/* <button className="button dark">Share</button> */}
+          <a href="#" className="button dark">Share</a>
+          <a className="button dark" style={{"color": "white", "text-decoration": "none",}} href="https://vtopchennai.therealsuji.tk/privacy-policy">Privacy Policy</a>
+
         </div>
         <div className="app-info">
           <h2>App info</h2>
@@ -124,6 +127,8 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         <a href={link} className="button dark">
           Download for Android
         </a>
+        <a className="button dark" style={{"color": "white", "text-decoration": "none",}} href="https://vtopchennai.therealsuji.tk/privacy-policy">Privacy Policy</a>
+
       </section>
     </div>
   );
