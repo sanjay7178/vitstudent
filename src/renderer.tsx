@@ -72,7 +72,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         <img src="/static/image6.png" alt="Screenshot 7" />
       </section>
       <section className="features">
-        <h2>Features</h2>
+        <h2 style={{"text-align": "center"}}>Features</h2>
         <div className="feature-grid">
           <div>
             <h3>Easy Timetable Access</h3>
@@ -97,7 +97,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         </div>
       </section>
       <section className="testimonials">
-        <h2>What Users Say</h2>
+        <h2 style={{"text-align": "center"}}>What Users Say</h2>
         <div className="testimonial-grid">
           <div>
             <p>

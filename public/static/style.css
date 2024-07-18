@@ -71,9 +71,14 @@ h1, h2, h3 {
 
 .features {
   padding: 50px 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .feature-grid {
+  /* margin-left: 50px;
+  margin-left: 50px; */
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -85,6 +90,8 @@ h1, h2, h3 {
 }
 
 .testimonial-grid {
+  margin-left: 50px;
+  margin-right: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -103,6 +110,8 @@ h1, h2, h3 {
 
 .carousel {
     margin-left: 50px;
+    margin-right: 50px;
+
   display: flex;
   overflow-x: auto;
   gap: 10px;
