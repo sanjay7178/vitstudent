@@ -91,10 +91,52 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
             </p>
           </div>
           <div>
-            <h3>Campus Map</h3>
+            <h3>Attendance</h3>
             <p>
-              Navigate the VIT AP campus effortlessly with our interactive map
-              feature.
+              Monitor your attendance and stay on top of your academic
+              commitments.
+            </p>
+          </div>
+          <div>
+            <h3>Material UI</h3>
+            <p>
+              Material UI for a clean and modern look, optimized for ease of use.
+            </p>
+          </div>
+          <div>
+            <h3>Class Notifier</h3>
+            <p>
+              Set reminders for your classes and never be late again!
+            </p>
+          </div>
+          <div>
+            <h3>Marks Checker</h3>
+            <p>
+              Check your internal marks and attendance with a single tap.
+            </p>
+          </div>
+          <div>
+            <h3>Examination Schedule View</h3>
+            <p>
+              View your upcoming exam schedule and prepare accordingly.
+            </p>
+          </div>
+          <div>
+            <h3>Feedback</h3>
+            <p>
+              Send us your feedback and suggestions directly from the app.
+            </p>
+          </div>
+          <div>
+            <h3>Fee Receipts</h3>
+            <p>
+              Access your fee receipts and payment history with ease.
+            </p>
+          </div>
+          <div>
+            <h3>Theme toggle</h3>
+            <p>
+              Switch between light , dark and AMOLED mode with a single tap.
             </p>
           </div>
         </div>
