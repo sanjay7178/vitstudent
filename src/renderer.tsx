@@ -13,7 +13,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
   const postProps: Post = {
     downloadCount: 10,
     version: "1.5",
-    link: "https://github.com/sanjay7178/android-vtop-vitap/releases/v1.5",
+    link: "https://github.com/sanjay7178/android-vtop-vitap/releases/download/v1.5/vtop_ap_v1.5.apk",
     updatedOn: "Jul 18, 2024",
   };
 
