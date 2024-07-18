@@ -44,7 +44,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
       <section className="hero">
         <div className="hero-content">
           <h1>VIT Student (AP)</h1>
-          <p>Creadits : <a href="https://github.com/therealsujitk">@therealsujitk</a></p>
+          <p>Credits : <a href="https://github.com/therealsujitk">@therealsujitk</a></p>
           <p>Maintainer : <a href="https://github.com/sanjay7178">@sanjay7178</a></p>
           <p>It's fully Open Source</p>
           <p>
