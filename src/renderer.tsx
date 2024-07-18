@@ -38,7 +38,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
           <a href="#">Donate</a>
           <a href="https://github.com/sanjay7178/android-vtop-vitap">Github</a>
           <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">Submit Bug</a>
-          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature Update</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature</a>
         </nav>
       </header>
       <section className="hero">
