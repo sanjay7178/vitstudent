@@ -1,6 +1,7 @@
 import { jsxRenderer } from "hono/jsx-renderer";
 import { PropsWithChildren } from "hono/jsx";
 import { fetchFormattedData } from ".";
+import { version } from "vite";
 
 type Post = {
   downloadCount: number;
@@ -9,18 +10,50 @@ type Post = {
   updatedOn: string;
 };
 
-export const renderer = jsxRenderer(({ children, title }) => {
+interface ApiResponse {
+  version: string;
+  downloads: number;
+  updatedOn: string;
+  releaseNotes: string;
+  tagName: string;
+  versionCode: string;
+  authorisedUserAgent: string;
+}
+
+type Data = {
+  tagName: string;
+  downloads: number;
+  updatedOn : string;
+};
+
+async function getTagName(): Promise<Data> {
+  try {
+    const response = await fetch("https://vitstudent.pages.dev/about.json");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json() as ApiResponse;
+    return { tagName: data.tagName, downloads: data.downloads , updatedOn : data.updatedOn};
+  } catch (error) {
+    console.error("Error fetching or parsing data:", error);
+    throw error;
+  }
+}
+
+
+export  const renderer = jsxRenderer(async ({ children, title }) => {
+  const { tagName, downloads ,updatedOn } = await getTagName();
   const postProps: Post = {
-    downloadCount: 10,
-    version: "1.5",
-    link: "https://github.com/sanjay7178/android-vtop-vitap/releases",
-    updatedOn: "Jul 18, 2024",
+    downloadCount: downloads,
+    version: tagName,
+    link: `https://github.com/sanjay7178/android-vtop-vitap/releases/download/${tagName}/vtop_ap_${tagName}.apk`,
+    updatedOn: new Date(updatedOn).toDateString() ,
   };
 
   return (
     <html>
       <head>
-        <link href="/static/style.css" rel="stylesheet" />
+        <link  href="/static/style.css" rel="stylesheet" />
         <title>{title}</title>
       </head>
       <Component {...postProps} />
@@ -28,7 +61,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
   );
 });
 
-function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
+function Component({ downloadCount, version, link , updatedOn}: PropsWithChildren<Post>) {
   return (
     <div className="App">
       <header className="header">
@@ -37,26 +70,42 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
           <a href="#">About Me</a>
           <a href="#">Donate</a>
           <a href="https://github.com/sanjay7178/android-vtop-vitap">Github</a>
-          <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">Submit Bug</a>
-          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">
+            Submit Bug
+          </a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">
+            Request Feature
+          </a>
         </nav>
       </header>
       <section className="hero">
         <div className="hero-content">
           <h1>VIT Student (AP)</h1>
-          <p>Credits : <a href="https://github.com/therealsujitk">@therealsujitk</a></p>
-          <p>Maintainer : <a href="https://github.com/sanjay7178">@sanjay7178</a></p>
+          <p>
+            Credits :{" "}
+            <a href="https://github.com/therealsujitk">@therealsujitk</a>
+          </p>
+          <p>
+            Maintainer : <a href="https://github.com/sanjay7178">@sanjay7178</a>
+          </p>
           <p>It's fully Open Source</p>
           <p>
-            {downloadCount} Downloads | v{version} | 8 MB Download Size
+            {downloadCount} Downloads | {version} | 8 MB Download Size | Updated on {updatedOn}
           </p>
-          <a href={link} className="button">
+          <a target="_blank" href={link} className="button">
             Download
           </a>
           {/* <button className="button dark">Share</button> */}
-          <a href="#" className="button dark">Share</a>
-          <a className="button dark" style={{"color": "white", "text-decoration": "none",}} href="https://vtopchennai.therealsuji.tk/privacy-policy">Privacy Policy</a>
-
+          <a href="#" className="button dark">
+            Share
+          </a>
+          <a
+            className="button dark"
+            style={{ color: "white", "text-decoration": "none" }}
+            href="https://vtopchennai.therealsuji.tk/privacy-policy"
+          >
+            Privacy Policy
+          </a>
         </div>
         <div className="app-info">
           <h2>App info</h2>
@@ -66,7 +115,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         </div>
       </section>
       <section className="carousel">
-        <img src="/static/image0.png" alt="Screenshot 1"  />
+        <img src="/static/image0.png" alt="Screenshot 1" />
         <img src="/static/image1.png" alt="Screenshot 2" />
         <img src="/static/image2.png" alt="Screenshot 3" />
         <img src="/static/image3.png" alt="Screenshot 4" />
@@ -75,7 +124,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         <img src="/static/image6.png" alt="Screenshot 7" />
       </section>
       <section className="features">
-        <h2 style={{"text-align": "center"}}>Features</h2>
+        <h2 style={{ "text-align": "center" }}>Features</h2>
         <div className="feature-grid">
           <div>
             <h3>Easy Timetable Access</h3>
@@ -100,38 +149,29 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
           <div>
             <h3>Material UI</h3>
             <p>
-              Material UI for a clean and modern look, optimized for ease of use.
+              Material UI for a clean and modern look, optimized for ease of
+              use.
             </p>
           </div>
           <div>
             <h3>Class Notifier</h3>
-            <p>
-              Set reminders for your classes and never be late again!
-            </p>
+            <p>Set reminders for your classes and never be late again!</p>
           </div>
           <div>
             <h3>Marks Checker</h3>
-            <p>
-              Check your internal marks and attendance with a single tap.
-            </p>
+            <p>Check your internal marks and attendance with a single tap.</p>
           </div>
           <div>
             <h3>Examination Schedule View</h3>
-            <p>
-              View your upcoming exam schedule and prepare accordingly.
-            </p>
+            <p>View your upcoming exam schedule and prepare accordingly.</p>
           </div>
           <div>
             <h3>Feedback</h3>
-            <p>
-              Send us your feedback and suggestions directly from the app.
-            </p>
+            <p>Send us your feedback and suggestions directly from the app.</p>
           </div>
           <div>
             <h3>Fee Receipts</h3>
-            <p>
-              Access your fee receipts and payment history with ease.
-            </p>
+            <p>Access your fee receipts and payment history with ease.</p>
           </div>
           <div>
             <h3>Theme toggle</h3>
@@ -142,7 +182,7 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         </div>
       </section>
       <section className="testimonials">
-        <h2 style={{"text-align": "center"}}>What Users Say</h2>
+        <h2 style={{ "text-align": "center" }}>What Users Say</h2>
         <div className="testimonial-grid">
           <div>
             <p>
@@ -169,8 +209,13 @@ function Component({ downloadCount, version, link }: PropsWithChildren<Post>) {
         <a href={link} className="button dark">
           Download for Android
         </a>
-        <a className="button dark" style={{"color": "white", "text-decoration": "none",}} href="https://vtopchennai.therealsuji.tk/privacy-policy">Privacy Policy</a>
-
+        <a
+          className="button dark"
+          style={{ color: "white", "text-decoration": "none" }}
+          href="https://vtopchennai.therealsuji.tk/privacy-policy"
+        >
+          Privacy Policy
+        </a>
       </section>
     </div>
   );
