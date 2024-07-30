@@ -29,7 +29,7 @@ export async function fetchFormattedData(version?: string) {
   let url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
 
   if (version) {
-    url = `https://api.github.com/repos/${owner}/${repo}/releases/tags/v${version}`;
+    url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
   }
 
   try {
