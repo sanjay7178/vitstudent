@@ -41,6 +41,8 @@ An array of faculty objects, each containing:
   ...
 ]
 
+
+
 ```txt
 npm install
 npm run dev
