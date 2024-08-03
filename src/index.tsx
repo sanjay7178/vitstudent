@@ -4,10 +4,32 @@ import { cache } from "hono/cache";
 import fs from "fs";
 import { facultySearch } from "./facultySearch";
 import { swaggerUI } from '@hono/swagger-ui'
+import axios from "axios";
 
 const app = new Hono();
 
-const jsonData = JSON.parse(fs.readFileSync("faculty_data.json", "utf8"));
+// const jsonData = JSON.parse(fs.readFileSync("faculty_data.json", "utf8"));
+// import axios from 'axios';
+
+let jsonData: any = null;
+
+async function fetchData() {
+  try {
+    const response = await axios.get('http://localhost:5173/static/faculty_data.json');
+    jsonData = response.data;
+  } catch (error) {
+    console.error('Error fetching data from localhost, trying secondary URL', error);
+    try {
+      const response = await axios.get('https://vitstudent.pages.dev/static/faculty_data.json');
+      jsonData = response.data;
+    } catch (secondaryError) {
+      console.error('Error fetching data from secondary URL', secondaryError);
+    }
+  }
+  // console.log(jsonData);
+}
+
+fetchData();
 
 // Serve faculty data as JSON
 app.get("/api/faculty", (c) => {
