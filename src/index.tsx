@@ -11,42 +11,55 @@ const app = new Hono();
 // const jsonData = JSON.parse(fs.readFileSync("faculty_data.json", "utf8"));
 // import axios from 'axios';
 
-let jsonData: any = null;
+// let jsonData: any = null;
 
-async function fetchData() {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    jsonData = await response.json();
-  } catch (error) {
-    console.error('Error fetching data from primary URL, trying secondary URL', error);
-    try {
-      const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      jsonData = await response.json();
-    } catch (secondaryError) {
-      console.error('Error fetching data from secondary URL', secondaryError);
-    }
-  }
-  // console.log(jsonData);
-}
+// async function fetchData() {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     jsonData = await response.json();
+//   } catch (error) {
+//     console.error('Error fetching data from primary URL, trying secondary URL', error);
+//     try {
+//       const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       jsonData = await response.json();
+//     } catch (secondaryError) {
+//       console.error('Error fetching data from secondary URL', secondaryError);
+//     }
+//   }
+//   // console.log(jsonData);
+// }
 
-fetchData();
+// fetchData();
 
 // Serve faculty data as JSON
-app.get("/api/faculty", (c) => {
+app.get("/api/faculty", async (c) => {
+  let jsonData :any = null;
+  const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  jsonData = await response.json();
   return c.json(jsonData);
 });
 
 // Search API
-app.get("/api/search", (c) => {
+app.get("/api/search", async (c) => {
   const query = c.req.query("q")?.toLowerCase();
   if (!query) return c.json([]);
 
+  let jsonData :any = null;
+  const response = await fetch('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  jsonData = await response.json();
+  
   const results = jsonData.filter((faculty: any) =>
     Object.values(faculty).some((value: any) =>
       value.toLowerCase().includes(query)
