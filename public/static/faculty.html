@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #222;
+            transition: background-color 0.3s;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            font-weight: 600;
+        }
+        .theme-toggle {
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background-color: #444;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .theme-toggle.light {
+            background-color: #ddd;
+            color: #000;
+        }
+        .light-theme {
+            background-color: #fff;
+            color: #000;
+        }
+        .light-theme table {
+            background-color: #f0f0f0;
+        }
+        .light-theme th {
+            background-color: #ddd;
+        }
+        .light-theme th, .light-theme td {
+            border: 1px solid #ccc;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle">Switch to Light Theme</button>
+    <h1>Faculty Search</h1>
+    <input type="text" id="searchInput" placeholder="Enter search query">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name of the Faculty</th>
+                <th>Designation</th>
+                <th>Name of Department</th>
+                <th>School / Centre Name</th>
+                <th>E-Mail Id</th>
+                <th>Cabin Number</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchFaculty() {
+            try {
+                const response = await fetch('/api/faculty');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching faculty data:', error);
+            }
+        }
+
+        async function searchFaculty(query) {
+            try {
+                const response = await fetch(`/api/search?q=${query}`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error searching faculty:', error);
+            }
+        }
+
+        function renderTable(data) {
+            const tableBody = document.getElementById('resultsTableBody');
+            tableBody.innerHTML = '';
+            data.forEach(faculty => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${faculty.ID}</td>
+                    <td>${faculty["Name of the Faculty"]}</td>
+                    <td>${faculty.Designation}</td>
+                    <td>${faculty["Name of Department"]}</td>
+                    <td>${faculty["School / Centre Name"]}</td>
+                    <td>${faculty["E-Mail Id"]}</td>
+                    <td>${faculty["Cabin Number"]}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', async (event) => {
+            const query = event.target.value.trim();
+            if (query) {
+                const results = await searchFaculty(query);
+                renderTable(results);
+            } else {
+                const allFaculty = await fetchFaculty();
+                renderTable(allFaculty);
+            }
+        });
+
+        document.querySelector('.theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const isLightTheme = document.body.classList.contains('light-theme');
+            document.querySelector('.theme-toggle').textContent = isLightTheme ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+        });
+
+        // Load all faculty data initially
+        fetchFaculty().then(renderTable);
+    </script>
+</body>
+</html>

@@ -8,12 +8,18 @@
     "deploy": "$npm_execpath run build && wrangler pages deploy"
   },
   "dependencies": {
-    "hono": "^4.5.0"
+    "@hono/swagger-ui": "^0.4.0",
+    "axios": "^1.7.3",
+    "hono": "^4.5.0",
+    "react": "^18.3.1",
+    "zod": "^3.23.8",
+    "zod-to-openapi": "^0.2.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
     "@hono/vite-cloudflare-pages": "^0.4.2",
     "@hono/vite-dev-server": "^0.13.0",
+    "@types/react": "^18.3.3",
     "vite": "^5.2.12",
     "wrangler": "^3.57.2"
   }
