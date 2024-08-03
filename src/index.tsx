@@ -15,12 +15,12 @@ let jsonData: any = null;
 
 async function fetchData() {
   try {
-    const response = await axios.get('https://vitstudent.pages.dev/static/faculty_data.json');
+    const response = await axios.get('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
     jsonData = response.data;
   } catch (error) {
     console.error('Error fetching data from localhost, trying secondary URL', error);
     try {
-      const response = await axios.get('http://localhost:5173/static/faculty_data.json');
+      const response = await axios.get('https://raw.githubusercontent.com/sanjay7178/vitstudent/main/public/static/faculty_data.json');
       jsonData = response.data;
     } catch (secondaryError) {
       console.error('Error fetching data from secondary URL', secondaryError);
