@@ -92,7 +92,7 @@ function Component({ downloadCount, version, link , updatedOn}: PropsWithChildre
           <p>
             {downloadCount} Downloads | {version} | 8 MB Download Size | Updated on {updatedOn}
           </p>
-          <a target="_blank" href={link} className="button">
+          <a  href={link} className="button">
             Download
           </a>
           {/* <button className="button dark">Share</button> */}
