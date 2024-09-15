@@ -1,7 +1,5 @@
 import { jsxRenderer } from "hono/jsx-renderer";
 import { PropsWithChildren } from "hono/jsx";
-import { fetchFormattedData } from ".";
-import { version } from "vite";
 
 type Post = {
   downloadCount: number;
@@ -68,8 +66,8 @@ export const renderer = jsxRenderer(async ({ children, title }) => {
         {/* Client-Side JavaScript */}
         <script>
           {`
-            // Image Modal Functionality
             document.addEventListener('DOMContentLoaded', function() {
+              // Image Modal Functionality
               const modal = document.getElementById('image-modal');
               const modalImg = document.getElementById('modal-image');
               const captionText = document.getElementById('caption');
@@ -93,6 +91,23 @@ export const renderer = jsxRenderer(async ({ children, title }) => {
                   modal.style.display = "none";
                 }
               });
+
+              // Hamburger Menu Functionality
+              const navToggle = document.getElementById('nav-toggle');
+              const nav = document.querySelector('.nav');
+              const navToggleLabel = document.querySelector('.nav-toggle-label');
+
+              navToggleLabel.addEventListener('click', () => {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+              });
+
+              // Close menu when a link is clicked
+              const navLinks = document.querySelectorAll('.nav a');
+              navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                  nav.style.display = 'none';
+                });
+              });
             });
           `}
         </script>
@@ -106,8 +121,11 @@ function Component({ downloadCount, version, link, updatedOn }: PropsWithChildre
     <div className="App">
       <header className="header">
         <div className="logo">M</div>
-        {/* Hamburger Menu Checkbox */}
+        {/* Hamburger Menu */}
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+        <label htmlFor="nav-toggle" className="nav-toggle-label" aria-label="Toggle navigation menu">
+          <span></span>
+        </label>
         <nav className="nav">
           <a href="#">About Me</a>
           <a href="#">Donate</a>
@@ -115,10 +133,6 @@ function Component({ downloadCount, version, link, updatedOn }: PropsWithChildre
           <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">Submit Bug</a>
           <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature</a>
         </nav>
-        {/* Hamburger Menu Label */}
-        <label htmlFor="nav-toggle" className="nav-toggle-label" aria-label="Toggle navigation menu">
-          <span></span>
-        </label>
       </header>
       <section className="hero">
         <div className="hero-content">
