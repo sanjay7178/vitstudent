@@ -23,7 +23,7 @@ interface ApiResponse {
 type Data = {
   tagName: string;
   downloads: number;
-  updatedOn : string;
+  updatedOn: string;
 };
 
 async function getTagName(): Promise<Data> {
@@ -32,126 +32,151 @@ async function getTagName(): Promise<Data> {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json() as ApiResponse;
-    return { tagName: data.tagName, downloads: data.downloads , updatedOn : data.updatedOn};
+    const data = (await response.json()) as ApiResponse;
+    return { tagName: data.tagName, downloads: data.downloads, updatedOn: data.updatedOn };
   } catch (error) {
     console.error("Error fetching or parsing data:", error);
     throw error;
   }
 }
 
-
-export  const renderer = jsxRenderer(async ({ children, title }) => {
-  const { tagName, downloads ,updatedOn } = await getTagName();
+export const renderer = jsxRenderer(async ({ children, title }) => {
+  const { tagName, downloads, updatedOn } = await getTagName();
   const postProps: Post = {
     downloadCount: downloads,
     version: tagName,
     link: `https://github.com/sanjay7178/android-vtop-vitap/releases/download/${tagName}/vtop_ap_${tagName}.apk`,
-    updatedOn: new Date(updatedOn).toDateString() ,
+    updatedOn: new Date(updatedOn).toDateString(),
   };
 
   return (
     <html>
       <head>
-        <link  href="/static/style.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/static/style.css" rel="stylesheet" />
         <title>{title}</title>
       </head>
-      <Component {...postProps} />
+      <body>
+        <Component {...postProps} />
+        {/* Image Modal */}
+        <div id="image-modal" className="modal">
+          <span className="close">&times;</span>
+          <img className="modal-content" id="modal-image" />
+          <div id="caption"></div>
+        </div>
+
+        {/* Client-Side JavaScript */}
+        <script>
+          {`
+            // Image Modal Functionality
+            document.addEventListener('DOMContentLoaded', function() {
+              const modal = document.getElementById('image-modal');
+              const modalImg = document.getElementById('modal-image');
+              const captionText = document.getElementById('caption');
+              const closeBtn = document.getElementsByClassName('close')[0];
+              const images = document.querySelectorAll('.carousel img');
+
+              images.forEach(img => {
+                img.addEventListener('click', () => {
+                  modal.style.display = "block";
+                  modalImg.src = img.src;
+                  captionText.innerHTML = img.alt;
+                });
+              });
+
+              closeBtn.addEventListener('click', () => {
+                modal.style.display = "none";
+              });
+
+              window.addEventListener('click', (event) => {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              });
+            });
+          `}
+        </script>
+      </body>
     </html>
   );
 });
 
-function Component({ downloadCount, version, link , updatedOn}: PropsWithChildren<Post>) {
+function Component({ downloadCount, version, link, updatedOn }: PropsWithChildren<Post>) {
   return (
     <div className="App">
       <header className="header">
         <div className="logo">M</div>
+        {/* Hamburger Menu Checkbox */}
+        <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <nav className="nav">
           <a href="#">About Me</a>
           <a href="#">Donate</a>
           <a href="https://github.com/sanjay7178/android-vtop-vitap">Github</a>
-          <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">
-            Submit Bug
-          </a>
-          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">
-            Request Feature
-          </a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/issues">Submit Bug</a>
+          <a href="https://github.com/sanjay7178/android-vtop-vitap/discussions">Request Feature</a>
         </nav>
+        {/* Hamburger Menu Label */}
+        <label htmlFor="nav-toggle" className="nav-toggle-label" aria-label="Toggle navigation menu">
+          <span></span>
+        </label>
       </header>
       <section className="hero">
         <div className="hero-content">
           <h1>VIT Student (AP)</h1>
           <p>
-            Credits :{" "}
-            <a href="https://github.com/therealsujitk">@therealsujitk</a>
+            Credits: <a href="https://github.com/therealsujitk">@therealsujitk</a>
           </p>
           <p>
-            Maintainer : <a href="https://github.com/sanjay7178">@sanjay7178</a>
+            Maintainer: <a href="https://github.com/sanjay7178">@sanjay7178</a>
           </p>
           <p>It's fully Open Source</p>
           <p>
             {downloadCount} Downloads | {version} | 8 MB Download Size | Updated on {updatedOn}
           </p>
-          <a  href={link} className="button">
+          <a href={link} className="button">
             Download
           </a>
-          {/* <button className="button dark">Share</button> */}
           <a href="#" className="button dark">
             Share
           </a>
-          <a
-            className="button dark"
-            style={{ color: "white", "text-decoration": "none" }}
-            href="https://vtopchennai.therealsuji.tk/privacy-policy"
-          >
+          <a className="button dark" href="https://vtopchennai.therealsuji.tk/privacy-policy">
             Privacy Policy
           </a>
         </div>
         <div className="app-info">
-          <h2>App info</h2>
+          <h2>App Info</h2>
           <p>Requires Android 7.0+</p>
           <p>Updated on Jul 18, 2024</p>
           <p>Released on Mar 7, 2024</p>
         </div>
       </section>
       <section className="carousel">
-        <img src="/static/image0.png" alt="Screenshot 1" />
-        <img src="/static/image1.png" alt="Screenshot 2" />
-        <img src="/static/image2.png" alt="Screenshot 3" />
-        <img src="/static/image3.png" alt="Screenshot 4" />
-        <img src="/static/image4.png" alt="Screenshot 5" />
-        <img src="/static/image5.png" alt="Screenshot 6" />
-        <img src="/static/image6.png" alt="Screenshot 7" />
+        <img src="/static/image0.png" alt="Screenshot 1" loading="lazy" />
+        <img src="/static/image1.png" alt="Screenshot 2" loading="lazy" />
+        <img src="/static/image2.png" alt="Screenshot 3" loading="lazy" />
+        <img src="/static/image3.png" alt="Screenshot 4" loading="lazy" />
+        <img src="/static/image4.png" alt="Screenshot 5" loading="lazy" />
+        <img src="/static/image5.png" alt="Screenshot 6" loading="lazy" />
+        <img src="/static/image6.png" alt="Screenshot 7" loading="lazy" />
       </section>
       <section className="features">
-        <h2 style={{ "text-align": "center" }}>Features</h2>
+        <h2>Features</h2>
         <div className="feature-grid">
           <div>
             <h3>Easy Timetable Access</h3>
-            <p>
-              View your class schedule at a glance, never miss a lecture again!
-            </p>
+            <p>View your class schedule at a glance, never miss a lecture again!</p>
           </div>
           <div>
             <h3>Grade Tracker</h3>
-            <p>
-              Keep track of your academic performance with our intuitive grade
-              monitoring system.
-            </p>
+            <p>Keep track of your academic performance with our intuitive grade monitoring system.</p>
           </div>
           <div>
             <h3>Attendance</h3>
-            <p>
-              Monitor your attendance and stay on top of your academic
-              commitments.
-            </p>
+            <p>Monitor your attendance and stay on top of your academic commitments.</p>
           </div>
           <div>
             <h3>Material UI</h3>
-            <p>
-              Material UI for a clean and modern look, optimized for ease of
-              use.
-            </p>
+            <p>Material UI for a clean and modern look, optimized for ease of use.</p>
           </div>
           <div>
             <h3>Class Notifier</h3>
@@ -174,27 +199,23 @@ function Component({ downloadCount, version, link , updatedOn}: PropsWithChildre
             <p>Access your fee receipts and payment history with ease.</p>
           </div>
           <div>
-            <h3>Theme toggle</h3>
-            <p>
-              Switch between light , dark and AMOLED mode with a single tap.
-            </p>
+            <h3>Theme Toggle</h3>
+            <p>Switch between light, dark, and AMOLED mode with a single tap.</p>
           </div>
         </div>
       </section>
       <section className="testimonials">
-        <h2 style={{ "text-align": "center" }}>What Users Say</h2>
+        <h2>What Users Say</h2>
         <div className="testimonial-grid">
           <div>
             <p>
-              "This app has been a lifesaver! I can easily check my schedule and
-              grades on the go."
+              "This app has been a lifesaver! I can easily check my schedule and grades on the go."
             </p>
             <p>- Priya S., 3rd Year CSE</p>
           </div>
           <div>
             <p>
-              "The campus map feature helped me find my way around during my
-              first week. Highly recommend!"
+              "The campus map feature helped me find my way around during my first week. Highly recommend!"
             </p>
             <p>- Rahul K., 1st Year ECE</p>
           </div>
@@ -202,18 +223,11 @@ function Component({ downloadCount, version, link , updatedOn}: PropsWithChildre
       </section>
       <section className="download">
         <h2>Download VIT Student (AP) App</h2>
-        <p>
-          Get VIT Student (AP) on your device and start boosting your
-          productivity today.
-        </p>
+        <p>Get VIT Student (AP) on your device and start boosting your productivity today.</p>
         <a href={link} className="button dark">
           Download for Android
         </a>
-        <a
-          className="button dark"
-          style={{ color: "white", "text-decoration": "none" }}
-          href="https://vtopchennai.therealsuji.tk/privacy-policy"
-        >
+        <a className="button dark" href="https://vtopchennai.therealsuji.tk/privacy-policy">
           Privacy Policy
         </a>
       </section>

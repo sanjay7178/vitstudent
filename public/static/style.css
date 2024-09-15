@@ -1,46 +1,141 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Montserrat", Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #1a1a1a;
   color: #ffffff;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: "Montserrat", sans-serif;
 }
 
 .header {
-    margin: 40px;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #000; /* Optional: Add a background color for the header */
+  position: relative;
 }
-
-
 
 .logo {
   font-size: 24px;
   font-weight: bold;
 }
 
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
 .nav a {
   color: #ffffff;
   text-decoration: none;
-  margin-left: 20px;
+  font-size: 16px;
 }
 
+/* Hamburger Menu Styles */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  width: 100%;
+}
+
+.nav-toggle-label span::before {
+  transform: translateY(-7px);
+}
+
+.nav-toggle-label span::after {
+  transform: translateY(4px);
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 35px;
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: bold;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hero Section */
 .hero {
-  padding: 50px 20px;
+  padding: 50px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.hero-content {margin-left: 40px;
-
+.hero-content {
+  margin-left: 40px;
   max-width: 600px;
 }
 
@@ -62,6 +157,11 @@ h1, h2, h3 {
   border-radius: 5px;
   margin-right: 10px;
   border: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #009624;
 }
 
 .button.dark {
@@ -69,24 +169,86 @@ h1, h2, h3 {
   color: #ffffff;
 }
 
+.button.dark:hover {
+  background-color: #555555;
+}
+
+/* App Info */
+.app-info {
+  margin-right: 40px;
+  text-align: right;
+  margin-left: 20px;
+}
+
+.carousel {
+  margin: 20px 50px;
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.carousel img {
+  height: auto;
+  width: 250px;
+  aspect-ratio: 9 / 20;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.carousel img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .carousel img {
+    width: auto;
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel img {
+    width: auto;
+    height: 100%;
+  }
+}
+/* Features Section */
 .features {
-  padding: 50px 20px;
+  padding: 50px 40px;
   margin-left: 50px;
   margin-right: 50px;
 }
 
-.feature-grid {
-  /* margin-left: 50px;
-  margin-left: 50px; */
+.features h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
+.feature-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.testimonials {
-  padding: 50px 20px;
+.features .feature-grid div {
   background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 50px 40px;
+  background-color: #2a2a2a;
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .testimonial-grid {
@@ -97,29 +259,206 @@ h1, h2, h3 {
   gap: 20px;
 }
 
+.testimonials .testimonial-grid div {
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Download Section */
 .download {
-  padding: 50px 20px;
+  padding: 50px 40px;
   text-align: center;
 }
 
-.app-info {
-    margin-right: 40px;
-  text-align: right;
-  margin-left: 20px;
+.download h2 {
+  margin-bottom: 20px;
 }
 
+.download p {
+  margin-bottom: 20px;
+}
+
+/* Responsive Adjustments */
+
+/* Tablets and below */
+@media (max-width: 1024px) {
+  .carousel img {
+    height: 350px;
+    max-width: 280px;
+  }
+
+  .features .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero {
+    padding: 30px 20px;
+  }
+
+  .hero-content {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .app-info {
+    text-align: left;
+    margin: 20px 0 0 0;
+  }
+
+  .carousel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .features {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .testimonial-grid {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background-color: #000;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 200px;
+    padding: 10px 0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+
+  .nav a {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-bottom: 1px solid #444;
+  }
+
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  /* Show nav when checkbox is checked */
+  .nav-toggle:checked + .nav-toggle-label + .nav {
+    display: flex;
+  }
+
+  .nav-toggle-label span {
+    background-color: #ffffff;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-content {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .carousel img {
+    height: 250px;
+    max-width: 90%;
+  }
+
+  .features .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .features {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .testimonial-grid {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .app-info {
+    text-align: left;
+    margin: 20px 0 0 0;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .carousel img {
+    height: 200px;
+    max-width: 100%;
+  }
+
+  .nav a {
+    margin-left: 8px;
+    font-size: 14px;
+  }
+}
+
+/* Scrollbar Styling for Carousel */
+.carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.carousel::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+
+/* Hide scrollbar for Firefox */
 .carousel {
-    margin-left: 50px;
-    margin-right: 50px;
-
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding: 20px 0;
-}
-
-.carousel img {
-  height: 600px;
-  flex-shrink: 0;
-  width: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #333;
 }
